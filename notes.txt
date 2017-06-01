@@ -1,0 +1,39 @@
+
+npm package publish
+
+https://docs.npmjs.com/getting-started/publishing-npm-packages
+
+
+
+digital ocean setup tutorial -- looks good
+
+https://www.digitalocean.com/community/tutorials/how-to-use-pm2-to-setup-a-node-js-production-environment-on-an-ubuntu-vps
+
+
+ssh2
+
+https://github.com/mscdex/ssh2
+
+https://newspaint.wordpress.com/2013/03/26/how-to-upload-a-file-over-ssh-using-node-js/
+
+
+
+scp2
+
+https://www.npmjs.com/package/scp2
+
+https://superuser.com/questions/652837/are-there-other-commands-like-scp-but-for-deleting-files-and-folders
+
+
+
+
+rsync
+
+** requires server instance too
+
+https://www.npmjs.com/package/rsync
+
+https://github.com/mattijs/node-rsync
+
+https://linux.die.net/man/1/rsync
+

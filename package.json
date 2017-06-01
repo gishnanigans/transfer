@@ -1,0 +1,24 @@
+{
+  "name": "bliss",
+  "version": "1.0.0",
+  "description": "interactive with Amazon Lightsail",
+  "main": "push.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satarah/bliss.git"
+  },
+  "author": "Kevin Douglas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/satarah/bliss/issues"
+  },
+  "homepage": "https://github.com/satarah/bliss#readme",
+  "dependencies": {
+    "rsync": "^0.6.1",
+    "scp2": "^0.5.0",
+    "ssh2": "^0.5.4"
+  }
+}
