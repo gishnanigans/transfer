@@ -1,0 +1,16 @@
+{
+  "name": "zinc",
+  "version": "0.0.1",
+  "description": "",
+  "main": "zinc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "firesideguru",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^3.8.4",
+    "ssh2": "^0.5.5"
+  }
+}
