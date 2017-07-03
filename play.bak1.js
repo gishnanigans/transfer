@@ -36,7 +36,7 @@ var diff = diffDir(dirA, dirB, opts);
 console.log(diff);
 
 
-
+///////// STILL HAVE TO COMPLET IS-DIRECTORY ON DETACHED AND RELATED
 
 function diffDir (srcRoot, dstRoot, opts, path, diff) {
   
@@ -54,44 +54,34 @@ function diffDir (srcRoot, dstRoot, opts, path, diff) {
     path = '';
   }
   
-  // sanitize and validate opts before calling diffDir
-  if (!opts) {
-    opts = {};
-  }
-  
-  if (!opts.ignore) {
-    opts.ignore = [];
-  }
-  
   let srcList = listDir(srcRoot);
   let dstList = listDir(dstRoot);
   
   srcList.forEach(srcItem => {
     
-    let srcPath = join(srcRoot, srcItem);
-    let dstPath = join(dstRoot, srcItem);
-    
-    let srcInfo = info(srcPath);
-    let dstInfo = info(dstPath);
-    
     let item = {
       itemName: srcItem,
       srcRoot: srcRoot,
       dstRoot: dstRoot,
-      isDir: srcInfo.isDir
+      isDir: false
     };
     
-    // skip items on ignore list
     if (ignore(srcRoot, path, srcItem, opts.ignore)) {
       diff.ignoring.push(item);
-      return; // next item
+      return;
     }
     
     let dstIdx = dstList.indexOf(srcItem);
     
     if (dstIdx > -1) {
       let found = dstList.splice(dstIdx, 1);
-    
+      
+      let srcPath = join(srcRoot, srcItem);
+      let dstPath = join(dstRoot, srcItem);
+      
+      let srcInfo = info(srcPath);
+      let dstInfo = info(dstPath);
+      
       if (srcInfo.cksum && srcInfo.cksum === dstInfo.cksum) {
         diff.nochange.push(item);
         return; // next item
@@ -124,18 +114,14 @@ function diffDir (srcRoot, dstRoot, opts, path, diff) {
   // process detached (remaining) dst items
   dstList.forEach(dstItem => {
     if (ignore(srcRoot, path, dstItem, opts.ignore)) {
-      return; // next item
+      return;
     }
     // remove detached here
-    
-    let dstPath = join(dstRoot, dstItem);
-    let dstInfo = info(dstPath);
-    
     let item = {
       itemName: dstItem,
       srcRoot: srcRoot,
       dstRoot: dstRoot,
-      isDir: dstInfo.isDir
+      isDir: false
     };
     
     diff.detached.push(item);
@@ -163,7 +149,6 @@ function ignore (root, path, item, ignores) {
     ignores.indexOf(enclosed) > -1;
 }
 
-
 function listDir (path) {
   return fs.readdirSync(path);
 }
@@ -171,9 +156,9 @@ function listDir (path) {
 
 function info (path) {
   
-  let stats = stat(path);
-  let isFile = stats.isFile();
-  let isDir = stats.isDirectory();
+  let stat = fs.statSync(path);
+  let isFile = stat.isFile();
+  let isDir = stat.isDirectory();
   let cksum = (isFile) ? crc(path) : false; // (isDir ? 'DIR' : 'NON')
   
   return {
@@ -181,11 +166,6 @@ function info (path) {
     isDir: isDir,
     cksum: cksum
   };
-}
-
-
-function stat (path) {
-  return fs.statSync(path);
 }
 
 
@@ -198,5 +178,6 @@ function crc (file, algo, enc) {
     .update(data, 'utf8')
     .digest(enc || 'hex');
     
+  // console.log('checksum', file, cksum);
   return cksum;
 }
